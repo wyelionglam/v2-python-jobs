@@ -12,16 +12,11 @@ import datetime
 if __name__ == "__main__":
     print("Doing work...")
 
-
-client = slack.WebClient(token='xoxb-227200048215-768930300244-QeZyS1dCA2fWoQLv844lKpcg')
+client = slack.WebClient(token='<slacktoken>')
 fromDate = datetime.date.today() - datetime.timedelta(days=7)
 toDate = datetime.date.today() - datetime.timedelta(days=5)
 print ("from date: ", fromDate)
 print ("to date: " , toDate)
-smtpServer='smtp1.ezypay.local'      
-fromAddr='no-reply@ezypay.com'         
-toAddr=['wyeliong.lam@ezypay.com']     
-server = smtplib.SMTP(smtpServer,25)
 invoiceid=''
 updateInvoiceScripts=''
 
@@ -42,10 +37,10 @@ def queryPayment(invoiceid):
     invoicetransactionid=''
 
     try:
-        connection = psycopg2.connect(user = "wye_liong",
-                                      password = "97jm47mib7s7K2u9J32A",
-                                      host = "sydney-cb-cluster.cluster-ro-crp0dlky68om.ap-southeast-2.rds.amazonaws.com",
-                                      port = "5432",
+        connection = psycopg2.connect(user = "<db_user>",
+                                      password = "<db_password>",
+                                      host = "<db_host>",
+                                      port = "<db_port>",
                                       database = "ezpayment")
         cursor = connection.cursor()
         postgreSQL_select_Query1 = "select id,status,invoiceid, invoicetransactionid, concat('UPDATE invoice set status =''',case WHEN status ='SUCCESS' THEN 'PAID' WHEN status ='FAILURE' THEN 'FAILED' ELSE status END,''' where id = ''', invoiceid,''';' ) as UpdateInvoice,"
