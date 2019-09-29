@@ -2,3 +2,7 @@ Currently housing:
 
 - Tribe Functional Training Gross Revenue Share
 - Invoices in Processing monitoring
+
+Requirements
+- psycopg2 2.8.3
+- slackclient 2.1.0
